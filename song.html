@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <script src="https://kit.fontawesome.com/42f363cf15.js" crossorigin="anonymous"></script>
+    <style>
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background: #333; /* Ensure the background color matches your design */
+}
+
+        .music {
+            width: 100%;
+            height: 100vh;
+            background: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .music-player {
+            background: #ffe0e5;
+            width: 300px;
+            padding: 15px 25px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            max-height: 80vh;
+            overflow: auto;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        nav > div {
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .circle {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            background: #fff;
+            color: #f53192;
+            box-shadow: 0 5px 10px rgba(255, 26, 26, 0.22);
+            font-size: 20px;
+            cursor: pointer;
+            display:flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .song-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 8px solid #fff;
+            box-shadow: 0 10px 60px rgba(255, 26, 26, 0.22);
+        }
+
+        .music-player h1 {
+            font-size: 20px;
+            font-weight: 400;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        .music-player p {
+            font-size: 14px;
+            color: #333;
+        }
+
+        #progress {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: #f53192;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 40px 0;
+        }
+
+        #progress::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            background: #f53192;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 8px solid #fff;
+            box-shadow: 0 5px 5px rgba(255, 26, 26, 0.22);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .controls div {
+            width: 60px;
+            height: 60px;
+            margin: 20px;
+            background: #fff;
+            display: inline-flex;
+            align-items: center;
+            border-radius: 50%;
+            color: #f53192;
+            box-shadow: 0 10px 20px rgba(255, 26, 26, 0.22);
+            cursor: pointer;
+            justify-content: center;
+        }
+
+        .controls div:nth-child(2){
+            transform: scale(1.5);
+            background: #f53192;
+            color:#fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="music">
+        <div class="music-player">
+            <nav>    
+                <div class="circle">
+                    <i class="fa-solid fa-angle-left"></i>
+                </div>
+                <div class="circle">
+                    <i class="fa-solid fa-bars"></i>
+                </div>            
+            </nav>
+            <img src="images\song-img.jpg" class="song-img" alt="Song Image">
+            <h1>A Thousand Years</h1>
+            <p>ALWAYS AND FOREVER</p>
+
+            <audio id="audio" src="A-Thousand-Years.mp3"></audio>
+            <input type="range" value="0" id="progress">
+
+            <div class="controls">
+                <div id="prev"><i class="fa-solid fa-backward"></i></div>
+                <div id="play"><i class="fa-solid fa-play"></i></div>
+                <div id="next"><i class="fa-solid fa-forward"></i></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const audio = document.getElementById('audio');
+        const playButton = document.getElementById('play');
+        const progress = document.getElementById('progress');
+        const prevButton = document.getElementById('prev');
+        const nextButton = document.getElementById('next');
+
+        // Play/Pause functionality
+        playButton.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playButton.innerHTML = '<i class="fa-solid fa-pause"></i>';
+            } else {
+                audio.pause();
+                playButton.innerHTML = '<i class="fa-solid fa-play"></i>';
+            }
+        });
+
+        // Update progress bar as the audio plays
+        audio.addEventListener('timeupdate', () => {
+            const progressValue = (audio.currentTime / audio.duration) * 100;
+            progress.value = progressValue;
+        });
+
+        // Seek functionality
+        progress.addEventListener('input', () => {
+            const seekTime = (progress.value / 100) * audio.duration;
+            audio.currentTime = seekTime;
+        });
+
+        // Previous and Next functionality (you can customize these)
+        prevButton.addEventListener('click', () => {
+            // Logic for previous track (if you have a playlist)
+            console.log('Previous track functionality not implemented.');
+        });
+
+        nextButton.addEventListener('click', () => {
+            // Logic for next track (if you have a playlist)
+            console.log('Next track functionality not implemented.');
+        });
+    </script>
+</body>
+</html>
